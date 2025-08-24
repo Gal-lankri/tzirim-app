@@ -4,7 +4,7 @@
     <div class="header">
       <h1>צירים</h1>
       <p>אפליקציה לזיהוי צירי לידה</p>
-      <div style="font-size: 18px; color: rgba(255, 255, 255, 0.8); margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-direction: row-reverse;">
+      <div class="time-display">
         <div class="clock-icon"></div>
         {{ currentTime }}
       </div>
