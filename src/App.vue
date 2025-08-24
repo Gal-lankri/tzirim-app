@@ -93,6 +93,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Medical Disclaimer -->
+    <div class="card" style="background: #f8f9fa; border: 1px solid #e9ecef;">
+      <div style="text-align: center; color: #6c757d; font-size: 14px; line-height: 1.5;">
+        <strong>⚠️ חשוב לדעת:</strong><br>
+        אפליקציה זו מיועדת למטרות לימודיות בלבד ואינה מהווה ייעוץ רפואי.<br>
+        יש להתייעץ תמיד עם הרופא המטפל שלך לקבלת הנחיות רפואיות ספציפיות.<br>
+        <em>This app is for educational purposes only and does not constitute medical advice. Always consult your healthcare provider for specific medical guidance.</em>
+      </div>
+    </div>
   </div>
 </template>
 
