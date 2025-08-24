@@ -14,10 +14,10 @@
     <div class="instructions">
       <h3>מתי להגיע לחדר לידה?</h3>
       <ul>
-        <li>צירים סדירים כל 5 דקות או פחות</li>
-        <li>כל ציר נמשך יותר מ-45 שניות</li>
-        <li>צירים כל 4 דקות במשך שעה</li>
-        <li>ירידת מים - יש להגיע לבדיקה בכל מקרה</li>
+        <li><strong>צירים סדירים:</strong> כל 5 דקות או פחות במשך שעה</li>
+        <li><strong>משך הצירים:</strong> כל ציר נמשך יותר מ-45 שניות</li>
+        <li><strong>צירים אינטנסיביים:</strong> כל 4 דקות במשך שעה</li>
+        <li><strong>ירידת מים:</strong> יש להגיע לבדיקת רופא בכל מקרה</li>
       </ul>
     </div>
 
@@ -245,11 +245,31 @@ export default {
       // Check if contractions last more than 45 seconds
       const longContractions = recent.filter(c => c.duration > 45)
       
-      if (shouldGo && longContractions.length >= 2) {
-        statusMessage.value = 'צירים כל 4 דקות! יש להגיע לחדר לידה!'
+      // Check for very frequent contractions (every 2 minutes or less)
+      let veryFrequent = false
+      if (recent.length >= 2) {
+        const timeDiff = (recent[0].startTime - recent[1].startTime) / 1000 / 60
+        veryFrequent = timeDiff <= 2
+      }
+      
+      // Check for very long contractions (over 90 seconds)
+      const veryLongContractions = recent.filter(c => c.duration > 90)
+      
+      // Priority alerts
+      if (veryFrequent && veryLongContractions.length >= 1) {
+        statusMessage.value = '🚨 צירים כל 2 דקות! יש להגיע לחדר לידה מיד!'
         statusClass.value = 'danger'
+      } else if (shouldGo && longContractions.length >= 2) {
+        statusMessage.value = '🚨 צירים כל 4 דקות! יש להגיע לחדר לידה!'
+        statusClass.value = 'danger'
+      } else if (veryLongContractions.length >= 1) {
+        statusMessage.value = '⚠️ צירים ארוכים מאוד! יש לעקוב אחר התדירות'
+        statusClass.value = 'warning'
       } else if (recent[0].duration > 45) {
-        statusMessage.value = 'ציר ארוך! יש לעקוב אחר התדירות'
+        statusMessage.value = '⚠️ ציר ארוך! יש לעקוב אחר התדירות'
+        statusClass.value = 'warning'
+      } else if (shouldGo) {
+        statusMessage.value = '⚠️ צירים מתקרבים - יש לעקוב אחר התדירות'
         statusClass.value = 'warning'
       }
     }
