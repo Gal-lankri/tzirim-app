@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
+  base: '/tzirim-app/', // Add this line for GitHub Pages
   server: {
     port: 3000,
     open: true
